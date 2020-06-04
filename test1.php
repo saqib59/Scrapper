@@ -1,5 +1,4 @@
 <?php
-
 /*error_reporting( E_ALL );
 ini_set( "display_errors", 1 );
 ini_set( "display_errors",1);*/
@@ -48,8 +47,8 @@ tr:nth-child(even) {
 }
 </style>
 
-<table>
-<tr>
+<table
+><tr>
     <th>Title</th>
     <th>Price</th>
     <th>SKU</th>
@@ -65,7 +64,7 @@ for ($i=1;$i<=2;$i++){
 
 https://www.dfwfurniturewarehouse.com/category/showsorted/allpage/500/layout/yes/fromajax/true?keyword=&subcategory%5B%5D=153&categoryid=1&pagenumber=$i&keyword=&allpage=500&sortbydropdown=1
 
-$url = file_get_html("https://www.dfwfurniturewarehouse.com/category/showsorted/allpage/500/layout/yes/fromajax/true?keyword=&subcategory%5B%5D=153&categoryid=1&pagenumber=$i&keyword=&category1=3&allpage=500&sortbydropdown=49&subcategory%5B%5D=213");//Bedroom
+$url = file_get_html("https://www.dfwfurniturewarehouse.com/category/showsorted/allpage/500/layout/yes/fromajax/true?keyword=&subcategory%5B%5D=153&categoryid=1&pagenumber=$i&keyword=&categoryid=1&allpage=500&sortbydropdown=49&subcategory%5B%5D=153");//Bedroom
 //https://www.dfwfurniturewarehouse.com/category/showsorted/allpage/500/layout/yes/fromajax/true?keyword=&subcategory%5B%5D=49&categoryid=14&pagenumber=$i&keyword=&categoryid=14&allpage=500&sortbydropdown=49&subcategory%5B%5D=49
 foreach ($url->find('.border-box') as $key)
 {
