@@ -4,7 +4,7 @@ require_once("library.php");
 
 set_time_limit(100000);
  /*
-https://www.dfwfurniturewarehouse.com/category/showsorted/allpage/500/layout/yes/fromajax/true?keyword=&subcategory%5B%5D=153&categoryid=1&pagenumber=$i&keyword=&allpage=500&sortbydropdown=1
+https://www.dfwfurniturewarehouse.com/category/showsorted/allpage/500/layout/yes/fromajax/true?keyword=&subcategory%5B%5D=154&categoryid=1&pagenumber=&keyword=&allpage=500&sortbydropdown=1
 
 
 
@@ -47,14 +47,15 @@ tr:nth-child(even) {
     <th>Dimension</th>
     <th>Image</th>  
     <th>Description</th>
+    <th>Gallery Images</th>
     <th>Sub Category</th>
  </tr>
 </thead>
  <tbody>
 <?php
-for ($i=1;$i<=15;$i++){
+for ($i=1;$i<=20;$i++){
 
-$url = file_get_html("https://www.dfwfurniturewarehouse.com/category/showsorted/allpage/500/layout/yes/fromajax/true?keyword=&subcategory%5B%5D=153&categoryid=1&pagenumber=$i&keyword=&categoryid=1&allpage=500&sortbydropdown=49&subcategory%5B%5D=153");
+$url = file_get_html("https://www.dfwfurniturewarehouse.com/category/showsorted/allpage/500/layout/yes/fromajax/true?keyword=&subcategory%5B%5D=1&categoryid=1&pagenumber=$i&keyword=&categoryid=1&allpage=500&sortbydropdown=49&subcategory%5B%5D=1");
 foreach ($url->find('.border-box') as $key)
 {
 $inner_url= $key->find('div.ProImg a',0)->href;
@@ -69,7 +70,7 @@ foreach ($website_url->find('.ProDtlCnt') as $inner){
  $dimension=$inner->find('span#dimensionCntCust',0)->plaintext;
  $img=$inner->find('.carousel-inner>.item>a>img',0)->src;
  $Description=$inner->find('.ProDesc',0)->outertext;
- 
+
  ?>
   <tr>
     <td><?php  echo $title;?></td>
@@ -78,7 +79,17 @@ foreach ($website_url->find('.ProDtlCnt') as $inner){
     <td><?php  echo $dimension;?></td>
     <td><?php  echo $img;?></td>
     <td><?php  echo $Description;?></td>
-    <td>Queen Beds</td>
+    <td><?php 
+    foreach ($inner->find('#thumbcarousel>.carousel-inner') as $imagees) {
+    
+        // echo $imagees->find('.thumb>img',0)->src;
+        foreach ($imagees->find('img') as $keysss) {
+            echo $keysss->attr['src'];
+            echo "<br>";
+        }
+      }
+     ?></td>
+    <td>Headboards</td>
   </tr>
   <?php
 }
