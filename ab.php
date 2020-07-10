@@ -2,7 +2,7 @@
 
 require_once("library.php");
 
-set_time_limit(100000);
+set_time_limit(1000000000000);
  /*
 https://www.dfwfurniturewarehouse.com/category/showsorted/allpage/500/layout/yes/fromajax/true?keyword=&subcategory%5B%5D=154&categoryid=1&pagenumber=&keyword=&allpage=500&sortbydropdown=1
 
@@ -53,11 +53,11 @@ tr:nth-child(even) {
 </thead>
  <tbody>
 <?php
-for ($i=1;$i<=20;$i++){
+for ($i=1;$i<=1;$i++){
 
-$url = file_get_html("https://www.dfwfurniturewarehouse.com/category/showsorted/allpage/500/layout/yes/fromajax/true?keyword=&subcategory%5B%5D=1&categoryid=1&pagenumber=$i&keyword=&categoryid=1&allpage=500&sortbydropdown=49&subcategory%5B%5D=1");
-foreach ($url->find('.border-box') as $key)
-{
+
+$url = file_get_html("https://www.dfwfurniturewarehouse.com/category/showsorted/allpage/500/layout/yes/fromajax/true?keyword=&subcategory%5B%5D=51&categoryid=14&pagenumber=".$i."");
+foreach ($url->find('.border-box') as $key){
 $inner_url= $key->find('div.ProImg a',0)->href;
 
 $website_url=file_get_html("https://www.dfwfurniturewarehouse.com/".$inner_url);//FOR INNER DETAILS
@@ -70,29 +70,30 @@ foreach ($website_url->find('.ProDtlCnt') as $inner){
  $dimension=$inner->find('span#dimensionCntCust',0)->plaintext;
  $img=$inner->find('.carousel-inner>.item>a>img',0)->src;
  $Description=$inner->find('.ProDesc',0)->outertext;
+ $bullets=$inner->find('.ProDesc>#bullet_feature',0)->plaintext;
 
  ?>
   <tr>
-    <td><?php  echo $title;?></td>
-    <td><?php  echo $price;?></td>
-    <td><?php  echo $SKU;?></td>
-    <td><?php  echo $dimension;?></td>
-    <td><?php  echo $img;?></td>
-    <td><?php  echo $Description;?></td>
+    <td><?php  echo $title; ?></td>
+    <td><?php  echo $price; ?></td>
+    <td><?php  echo $SKU; ?></td>
+    <td><?php  echo $dimension; ?></td>
+    <td><?php  echo 'https:'.$img; ?></td>
+    <td><?php  echo $Description."<br>".$bullets; ?></td>
     <td><?php 
     foreach ($inner->find('#thumbcarousel>.carousel-inner') as $imagees) {
     
-        // echo $imagees->find('.thumb>img',0)->src;
         foreach ($imagees->find('img') as $keysss) {
-            echo $keysss->attr['src'];
+            echo 'https:'.$keysss->attr['src'];
             echo "<br>";
         }
       }
+
      ?></td>
-    <td>Headboards</td>
+    <td>Twin XL</td>
   </tr>
   <?php
-}
+  }
 }
 }
 ?>
@@ -110,18 +111,19 @@ foreach ($website_url->find('.ProDtlCnt') as $inner){
  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
 
+
+</body>
 <script type="text/javascript">
   $( document ).ready(function() {
     $('#mytable1').DataTable({
        dom: 'Bfrtip',
       buttons: [
-        'copy', 'excel','csv'
+        'copy', 'excel','csv','pdf'
     ]
     });
 
 });
 </script>
-</body>
 </html>
 
 
