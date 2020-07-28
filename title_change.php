@@ -3,6 +3,12 @@
 require_once("library.php");
 
 set_time_limit(1000000000000);
+ /*
+https://www.dfwfurniturewarehouse.com/category/showsorted/allpage/500/layout/yes/fromajax/true?keyword=&subcategory%5B%5D=154&categoryid=1&pagenumber=&keyword=&allpage=500&sortbydropdown=1
+
+
+
+https://www.dfwfurniturewarehouse.com/category/showsorted/allpage/500/layout/yes/fromajax/true?keyword=&subcategory%5B%5D=153&categoryid=1&pagenumber=$i&keyword=&allpage=500&sortbydropdown=1*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -59,11 +65,16 @@ $website_url=file_get_html("https://www.dfwfurniturewarehouse.com/".$inner_url);
 foreach ($website_url->find('.ProDtlCnt') as $inner){
 
  $SKU=$inner->find('.SKU span',0)->plaintext;
- $title=$inner->find('.ProCnt .ProDtlTitle',0)->plaintext;
- $price=$inner->find('.PRedTxt1 .PRedSpan1',0)->plaintext;
+ // $title=$inner->find('.ProCnt .ProDtlTitle',0)->plaintext;
+ $title=$inner->find('#productnameh2',0)->plaintext;
+ // $price=$inner->find('.PRedTxt1 .PRedSpan1',0)->plaintext;
+ $price=$inner->find('.totalPrice #priceTotal',0)->plaintext;
+
  $dimension=$inner->find('.SKU #dimensionCntCust',0)->plaintext;
  $img=$inner->find('.carousel-inner>.item>a>img',0)->src;
  $Description=$inner->find('#hset-description>div',0)->plaintext;
+ // $bullets=$inner->find('.#bullet_feature',0)->plaintext;
+
 
  ?>
   <tr>
